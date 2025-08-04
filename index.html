@@ -64,19 +64,18 @@
       gap: 1.5rem;
     }
     .video-container {
-      width: 200px;
-      height: 200px;
+      width: 320px;
+      height: 180px;
       position: relative;
       border: 1px solid #444;
       border-radius: 8px;
       overflow: hidden;
     }
-    .video-container video {
+    .video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
       border-radius: 8px;
-      object-fit: cover;
     }
   </style>
 </head>
@@ -118,28 +117,31 @@
       <h2>🎥</h2>
       <div class="video-section">
         <div class="video-container">
-          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
-            <source src="videos/gouging.mov" type="video/mp4">
-            このブラウザは動画再生に対応していません。
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
         </div>
         <div class="video-container">
-          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
-            <source src="videos/bucket.mov" type="video/mp4">
-            このブラウザは動画再生に対応していません。
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
         </div>
         <div class="video-container">
-          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
-            <source src="videos/bucket_stl.mov" type="video/mp4">
-            このブラウザは動画再生に対応していません。
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/8KiitGGw7YY?mute=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
         </div>
-        <!-- <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-        </div> -->
       </div>
-    </section>    
+    </section>       
 
     <section>
       <h2>👤</h2>
