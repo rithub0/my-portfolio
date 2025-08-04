@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="自分用ポータルページ。メモ、リンク集、プロフィールなど。">
+  <meta name="author" content="Your Name">
+  <title>rT_Container</title>
+
+  <!-- SNSシェア対策 -->
+  <meta property="og:title" content="My Personal Page">
+  <meta property="og:description" content="シンプルでミニマルな自分用ポータルサイト。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://example.com/og-image.png">
+  <meta property="og:url" content="https://example.com/">
+
+  <!-- アイコンなど -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- スタイル -->
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "HackGen Console NF", monospace;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    header, footer {
+      border-bottom: 1px solid #444;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+    h1, h2 {
+      color: #fff;
+    }
+    main section {
+      margin-bottom: 2rem;
+    }
+    .album {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .album img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
+    .video-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .video-container {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      border: 1px solid #444;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>rT_Container</h1>
+    <p></p>
+  </header>
+  <main>
+    <section>
+      <h2>📌</h2>
+      <ul>
+        <li>PHP8技術者認定初級試験 9/9</li>
+        <li>CADPy</li>
+        <li><a href="https://github.com/rithub0/test_YOLO">画像認識テストプログラム Github</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🔗</h2>
+      <ul>
+        <li><a href="https://google.co.jp/">Google</a></li>
+        <li><a href="https://chat.openai.com/">ChatGPT</a></li>
+        <li><a href="https://github.com/">GitHub</a></li>
+        <li><a href="https://zenn.dev/">Zenn</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📷</h2>
+      <div class="album">
+        <img src="images/building_berth.JPG" alt="船台" loading="lazy">
+        <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy">
+        <img src="images/bucket.jpg" alt="バケット" loading="lazy">
+      </div>
+    </section>
+
+    <section>
+      <h2>🎥</h2>
+      <div class="video-section">
+        <div class="video-container">
+          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
+            <source src="videos/gouging.mov" type="video/mp4">
+            このブラウザは動画再生に対応していません。
+          </video>
+        </div>
+        <div class="video-container">
+          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
+            <source src="videos/bucket.mov" type="video/mp4">
+            このブラウザは動画再生に対応していません。
+          </video>
+        </div>
+        <div class="video-container">
+          <video controls muted controlsList="nodownload nofullscreen noremoteplayback">
+            <source src="videos/bucket_stl.mov" type="video/mp4">
+            このブラウザは動画再生に対応していません。
+          </video>
+        </div>
+        <!-- <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </section>    
+
+    <section>
+      <h2>👤</h2>
+      <p>製造業DX参画を模索。Python+AIを中心に学習中。</p>
+    </section>
+  </main>
+  <footer>
+    <small>&copy; 2025 rT_Container. All rights reserved.</small>
+  </footer>
+</body>
+</html>
+
+<!-- https://youtu.be/GQzUyI3K_sA -->
+
+<!-- https://youtu.be/S7nThyY_XH8 -->
+
+<!-- https://youtu.be/8KiitGGw7YY -->
