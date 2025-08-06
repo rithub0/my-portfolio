@@ -18,6 +18,9 @@
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+  <!-- model-viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
   <!-- スタイル -->
   <style>
     body {
@@ -81,7 +84,7 @@
 </head>
 <body>
   <header>
-    <h1>rT_Container</h1>
+    <h1>rT_Container（👷工事中）</h1>
     <p></p>
   </header>
   <main>
@@ -106,19 +109,36 @@
     </section>
 
     <section>
-      <h2>🧱</h2>
+      <h2>🧱 3Dモデル（回転表示）</h2>
       <div class="album">
-        <a href="">
-          <img src="models/kleinsche_flasche.mov" alt="クラインの壺">
-        </a>
-        <a href="">
-          <img src="models/reterra.mov" alt="ガード">
-        </a>
-        <a href="">
-          <img src="models/bucket.mov" alt="バケット">
-        </a>
+        <model-viewer
+          src="models/kleinsche_flasche.glb"
+          alt="クラインの壺"
+          camera-controls
+          auto-rotate
+          background-color="#000000"
+          style="width: 200px; height: 200px; border: 1px solid #444; border-radius: 8px;">
+        </model-viewer>
+
+        <model-viewer
+          src="models/reterra.glb"
+          alt="ガード"
+          camera-controls
+          auto-rotate
+          background-color="#000000"
+          style="width: 200px; height: 200px; border: 1px solid #444; border-radius: 8px;">
+        </model-viewer>
+
+        <model-viewer
+          src="models/bucket.glb"
+          alt="バケット"
+          camera-controls
+          auto-rotate
+          background-color="#000000"
+          style="width: 200px; height: 200px; border: 1px solid #444; border-radius: 8px;">
+        </model-viewer>
       </div>
-      <!-- <p>FreeCADで設計した部品モデル（STL形式）です。画像クリックでダウンロードできます。</p> -->
+      <p>ドラッグして回転、ホイールでズームできます。</p>
     </section>
 
     <section>
@@ -149,14 +169,6 @@
             allowfullscreen>
           </iframe>
         </div>
-        <!-- <div class="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/8KiitGGw7YY?mute=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
-        </div> -->
       </div>
     </section>       
 
