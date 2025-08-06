@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="自分用ポータルページ。メモ、リンク集、プロフィールなど。">
-  <meta name="author" content="Your Name">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="自分用ポータルページ。メモ、リンク集、プロフィールなど。" />
+  <meta name="author" content="Your Name" />
   <title>rT_Container</title>
 
   <!-- SNSシェア対策 -->
-  <meta property="og:title" content="My Personal Page">
-  <meta property="og:description" content="シンプルでミニマルな自分用ポータルサイト。">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://example.com/og-image.png">
-  <meta property="og:url" content="https://example.com/">
+  <meta property="og:title" content="My Personal Page" />
+  <meta property="og:description" content="シンプルでミニマルな自分用ポータルサイト。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://example.com/og-image.png" />
+  <meta property="og:url" content="https://example.com/" />
 
   <!-- アイコンなど -->
-  <link rel="icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
   <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -31,40 +31,64 @@
       padding: 2rem;
       line-height: 1.6;
     }
+
     a {
       color: #00ffff;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
-    header, footer {
+
+    header,
+    footer {
       border-bottom: 1px solid #444;
       padding-bottom: 1rem;
       margin-bottom: 2rem;
     }
-    h1, h2 {
+
+    h1,
+    h2 {
       color: #fff;
     }
+
     main section {
       margin-bottom: 2rem;
     }
+
     .album {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
     }
+
     .album img {
       width: 200px;
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
     }
+
+    .model-viewer-box {
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+      background-color: #000;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+
     .video-section {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
     }
+
     .video-container {
       width: 320px;
       height: 180px;
@@ -72,6 +96,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
+
     .video-container iframe {
       width: 100%;
       height: 100%;
@@ -82,9 +107,10 @@
 </head>
 <body>
   <header>
-    <h1>rT_Container（👷工事中）</h1>
-    <p></p>
+    <h1>rT_Container</h1>
+    <small>（👷 工事中）</small>
   </header>
+
   <main>
     <section>
       <h2>🔗</h2>
@@ -109,79 +135,37 @@
     <section>
       <h2>🧱</h2>
       <div class="album">
-        <model-viewer
-          src="models/kleinsche_flache.glb"
-          alt="クラインの壺"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/earth.glb"
-          alt="地球儀"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/iphone_se2_bumper.glb"
-          alt="iPhoneSE2バンパー"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/sakura_vase.glb"
-          alt="一輪挿し"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/right_arrow.glb"
-          alt="右矢印→"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/hebi.glb"
-          alt="巳年"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
-
-        <model-viewer
-          src="models/ttr.glb"
-          alt="トトロ（スキャンテスト）"
-          camera-controls
-          auto-rotate
-          background-color="#000000"
-          style="width: 200px; height: 200px; border-radius: 8px;">
-        </model-viewer>
+        <div class="model-viewer-box">
+          <model-viewer src="models/kleinsche_flache.glb" alt="クラインの壺" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/earth.glb" alt="地球儀" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/iphone_se2_bumper.glb" alt="iPhoneSE2バンパー" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/sakura_vase.glb" alt="一輪挿し" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/right_arrow.glb" alt="右矢印→" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/hebi.glb" alt="巳年" camera-controls auto-rotate></model-viewer>
+        </div>
+        <div class="model-viewer-box">
+          <model-viewer src="models/ttr.glb" alt="トトロ（スキャンテスト）" camera-controls auto-rotate></model-viewer>
+        </div>
       </div>
-      <!-- <p>ドラッグして回転、ホイールでズームできます。</p> -->
     </section>
 
     <section>
       <h2>📷</h2>
       <div class="album">
-        <img src="images/building_berth.JPG" alt="船台" loading="lazy">
-        <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy">
-        <img src="images/bucket.jpg" alt="バケット" loading="lazy">
-        <img src="images/bucket.png" alt="バケットモデル" loading="lazy">
+        <img src="images/building_berth.JPG" alt="船台" loading="lazy" />
+        <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy" />
+        <img src="images/bucket.jpg" alt="バケット" loading="lazy" />
+        <img src="images/bucket.png" alt="バケットモデル" loading="lazy" />
       </div>
     </section>
 
@@ -189,37 +173,28 @@
       <h2>🎥</h2>
       <div class="video-section">
         <div class="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
-    </section>       
+    </section>
 
     <section>
       <h2>👤</h2>
       <p>
-        ・第一種普通（準中型）自動車運転免許<br>
-        ・第一種衛生管理<br>
-        ・技能講習修了：フォークリフト運転・玉掛け・ガス溶接<br>
-        ・特別教育修了：クレーン（5t未満）の運転・アーク溶接等の業務<br>
-        ・溶接技能：NK／MW・SW／CS・SU／Z<br>
-        ・Python3エンジニア認定基礎試験<br>
+        ・第一種普通（準中型）自動車運転免許<br />
+        ・第一種衛生管理<br />
+        ・技能講習修了：フォークリフト運転・玉掛け・ガス溶接<br />
+        ・特別教育修了：クレーン（5t未満）の運転・アーク溶接等の業務<br />
+        ・溶接技能：NK／MW・SW／CS・SU／Z<br />
+        ・Python3エンジニア認定基礎試験<br />
         ・Webクリエイター能力認定試験エキスパート
       </p>
     </section>
   </main>
+
   <footer>
     <small>&copy; 2025 rT_Container. All rights reserved.</small>
   </footer>
