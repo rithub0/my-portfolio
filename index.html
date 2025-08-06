@@ -32,6 +32,18 @@
       line-height: 1.6;
     }
 
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    section {
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 2rem;
+    }
+
     a {
       color: #00ffff;
       text-decoration: none;
@@ -53,10 +65,6 @@
       color: #fff;
     }
 
-    main section {
-      margin-bottom: 2rem;
-    }
-
     .album {
       display: flex;
       flex-wrap: wrap;
@@ -68,6 +76,11 @@
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
+    }
+
+    .album,
+    .video-section {
+      justify-content: center;
     }
 
     .model-viewer-box {
@@ -210,13 +223,13 @@
     <section class="profile-section">
       <h2>👤</h2>
       <ul class="profile-list">
-        <li>🚗 第一種普通（準中型）自動車運転免許</li>
-        <li>🏥 第一種衛生管理</li>
-        <li>🔧 技能講習修了：フォークリフト運転・玉掛け・ガス溶接</li>
-        <li>🏗️ 特別教育修了：クレーン（5t未満）・アーク溶接</li>
-        <li>🔥 溶接技能：NK／MW・SW／CS・SU／Z</li>
-        <li>🐍 Python3エンジニア認定基礎試験</li>
-        <li>🌐 Webクリエイター能力認定試験エキスパート</li>
+        <li>第一種普通（準中型）自動車運転免許</li>
+        <li>第一種衛生管理</li>
+        <li>技能講習修了：フォークリフト運転・玉掛け・ガス溶接</li>
+        <li>特別教育修了：クレーン（5t未満）・アーク溶接</li>
+        <li>溶接技能：NK／MW・SW／CS・SU／Z</li>
+        <li>Python3エンジニア認定基礎試験</li>
+        <li>Webクリエイター能力認定試験エキスパート</li>
       </ul>
     </section>    
   </main>
