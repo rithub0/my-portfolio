@@ -280,42 +280,6 @@
           </div>
         </div>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          // すべての動画を初期ミュート・自動再生・ループ・インライン再生
-          document.querySelectorAll('video.video').forEach(el => {
-            el.muted = true;           // 初期は無音（自動再生の必須条件）
-            el.loop = true;
-            el.autoplay = true;
-            el.setAttribute('playsinline','');
-            el.setAttribute('webkit-playsinline','');
-        
-            const tryPlay = () => el.play().catch(() => {});
-            if (el.readyState >= 2) tryPlay();
-            else el.addEventListener('loadeddata', tryPlay, { once: true });
-          });
-        
-          // 既存の音ON/OFFボタン（gougingのみ）の動作はそのまま
-          const v = document.getElementById('gougingVideo');
-          const btn = document.getElementById('muteToggleBtn');
-          if (v && btn) {
-            const syncLabel = () => {
-              const isMuted = v.muted || v.volume === 0;
-              btn.textContent = isMuted ? '🔇' : '🔈';
-              btn.setAttribute('aria-pressed', String(!isMuted));
-            };
-            btn.addEventListener('click', async () => {
-              v.muted = !v.muted;
-              if (!v.muted) { v.volume = 1.0; try { await v.play(); } catch {} }
-              syncLabel();
-            });
-            v.addEventListener('volumechange', syncLabel);
-            v.addEventListener('loadeddata', syncLabel);
-            syncLabel();
-          }
-        });
-        </script>          
-
       <section class="profile-section">
         <h2>👤</h2>
         <ul class="profile-list">
@@ -337,5 +301,62 @@
       <small>📩：<a href="https://x.com/3drtec" target="_blank" rel="noopener noreferrer">X（連絡用）@3drtec</a></small>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      const onReady = (fn) => {
+        if (document.readyState === 'complete' || document.readyState === 'interactive') fn();
+        else document.addEventListener('DOMContentLoaded', fn, { once: true });
+      };
+    
+      onReady(() => {
+        const videos = Array.from(document.querySelectorAll('video.video'));
+    
+        const prime = (v) => {
+          v.muted = true;          // 自動再生の必須条件
+          v.defaultMuted = true;   // iOS対策
+          v.loop = true;
+          v.autoplay = true;
+          v.setAttribute('playsinline', '');
+          v.setAttribute('webkit-playsinline', '');
+          if (!v.hasAttribute('preload')) v.setAttribute('preload', 'auto');
+        };
+    
+        const tryPlay = (v) => v.play().catch(() => { /* ポリシーブロック時は黙って無視 */ });
+    
+        // 初期化と再生トライ
+        videos.forEach(v => {
+          prime(v);
+          if (v.readyState >= 2) tryPlay(v);
+          else v.addEventListener('canplay', () => tryPlay(v), { once: true });
+        });
+    
+        // サイレント・フォールバック：最初のユーザー操作/フォーカス復帰で全動画再生
+        const kickAll = () => videos.forEach(v => { if (v.paused) tryPlay(v); });
+        document.addEventListener('pointerdown', kickAll, { once: true });
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) kickAll(); });
+    
+        // 既存の音ON/OFFボタン（gouging）のまま
+        const v = document.getElementById('gougingVideo');
+        const btn = document.getElementById('muteToggleBtn');
+        if (v && btn) {
+          const syncLabel = () => {
+            const isMuted = v.muted || v.volume === 0;
+            btn.textContent = isMuted ? '🔇' : '🔈';
+            btn.setAttribute('aria-pressed', String(!isMuted));
+          };
+          btn.addEventListener('click', async () => {
+            v.muted = !v.muted;
+            if (!v.muted) { v.volume = 1.0; try { await v.play(); } catch (_) {} }
+            syncLabel();
+          });
+          v.addEventListener('volumechange', syncLabel);
+          v.addEventListener('loadeddata', syncLabel);
+          syncLabel();
+        }
+      });
+    })();
+    </script>
+    
 </body>
 </html>
