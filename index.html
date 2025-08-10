@@ -93,6 +93,16 @@
       margin-bottom: 2rem;
     }
 
+    /* 中央配置を維持しつつ、文面だけ左揃え */
+    section ul,
+    .profile-section .profile-list,
+    section p,
+    .profile-section p {
+      display: inline-block; /* 中央のまま幅を内容に合わせる */
+      text-align: left;      /* 文頭を左揃え */
+      max-width: 100%;       /* 画面が狭い時のはみ出し防止 */
+    }
+
     ul {
       list-style: none;
       padding-left: 0;
