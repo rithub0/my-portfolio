@@ -195,19 +195,46 @@
     }
 
     .video-container {
-      width: 320px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       position: relative;
       border-radius: 8px;
       overflow: hidden;
     }
 
-    .video-container iframe {
+    /* 収まり方：全体を見せたいなら contain、枠いっぱいに埋めたいなら cover */
+    .video{
+      width:100%;
+      height:100%;
+      object-fit:contain; /* or cover */
+      display:block;
+      border:none;
+      border-radius:8px;
+    }
+    /* ミュート解除ボタンの見た目 */
+    .unmute-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .unmute-btn:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    /* .video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
       border-radius: 8px;
-    }
+    } */
+
     .profile-section {
       /* border: 1px solid #444; */
       /* border-radius: 8px; */
@@ -319,12 +346,63 @@
       <section>
         <h2>🎥</h2>
         <div class="video-section">
+          <!-- 静かに自動再生したい場合（ミュート必須） -->
+          <!-- gouging -->
           <div class="video-container">
+            <video id="gougingVideo" class="video" muted autoplay loop playsinline webkit-playsinline preload="metadata">
+              <!-- 互換性重視なら mp4 を用意 -->
+              <source src="videos/gouging.mp4" type="video/mp4">
+              <source src="videos/gouging.mov" type="video/quicktime">
+              <!-- どちらも再生できない場合のフォールバック -->
+              お使いのブラウザは動画に対応していません。
+            </video>
+            <!-- ミュート解除ボタン -->
+            <button id="muteToggleBtn" class="unmute-btn" aria-pressed="true" aria-label="音声のオンオフ">🔈</button>
+          </div>
+          <script>
+            const v = document.getElementById('gougingVideo');
+            const btn = document.getElementById('muteToggleBtn');
+            // 初期状態：ミュート（音OFF）
+            v.muted = true;
+            v.volume = 1.0;
+            function syncLabel() {
+              const isMuted = v.muted || v.volume === 0;
+              btn.textContent = isMuted ? '🔇' : '🔈';
+              btn.setAttribute('aria-pressed', String(!isMuted));
+            }
+            btn.addEventListener('click', async () => {
+              // トグル
+              const willMute = !(v.muted || v.volume === 0) ? true : false;
+              if (willMute) {
+                v.muted = true;
+                // 音量0にしなくても良いが、明示しておくなら↓
+                // v.volume = 0;
+              } else {
+                v.muted = false;
+                v.volume = 1.0;
+                try { await v.play(); } catch(e) { /* iOS等の安全策 */ }
+              }
+              syncLabel();
+            });
+            // 何かの理由で状態が変わった場合に同期
+            v.addEventListener('volumechange', syncLabel);
+            v.addEventListener('loadeddata', syncLabel);
+            syncLabel();
+          </script>
+          <!-- bucket -->
+          <div class="video-container">
+            <video class="video" muted autoplay loop playsinline webkit-playsinline preload="metadata">
+              <source src="videos/bucket.mp4" type="video/mp4">
+              <source src="videos/bucket.mov" type="video/quicktime">
+              お使いのブラウザは動画に対応していません。
+            </video>
+          </div>
+          <!-- <div class="video-container">
             <iframe src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="video-container">
             <iframe src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
+          </div> -->
         </div>
       </section>
       <section class="profile-section">
