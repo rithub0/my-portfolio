@@ -23,14 +23,25 @@
 
   <!-- スタイル -->
   <style>
+    html, body { height: 100%; }
+
     body {
       background-color: #000;
       color: #fff;
       font-family: "HackGen Console NF", monospace;
       margin: 0;
-      padding: 2rem;
+      /* padding: 2rem; */
       line-height: 1.6;
-      max-width: 1000px;
+      /* max-width: 1000px;
+      text-align: center; */
+      display: grid;       /* 画面の中央に配置するため */
+      min-height: 100svh;  /* 端末の表示高に追従 */
+    }
+
+    .page{
+      width: min(100%, 1000px);
+      margin: auto;   /* 横も縦も余白があれば自動で中央寄せ */
+      padding: 2rem;  /* もとの余白はここへ移動 */
       text-align: center;
     }
 
@@ -42,6 +53,28 @@
       z-index: -1;
       /* max-width: 1000px; */
       /* background-image: url("images/container.png"); */
+    }
+
+    :root { --maxw: 1000px; }
+
+    /* アクセシビリティ用で見た目は非表示 */
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+
+    /* コンテナ：最大幅1000px、端末幅に追従 */
+    .hero{
+      width:min(100%, var(--maxw));
+      margin-inline:auto;
+    }
+
+    /* 画像：横幅にフィット、縦横比は自動維持、全体表示 */
+    .hero img{
+      display:block;
+      width:100%;
+      height:auto;        /* ← これで比率固定 */
+      border-radius:8px;
     }
 
     main {
@@ -79,7 +112,7 @@
       text-align: center; /* 中央寄せ */
     }
 
-    header h1 {
+    /* header h1 {
       background-image: url("images/container.png");
       background-size: cover;
       background-position: center;
@@ -88,9 +121,9 @@
       padding: 5rem 2rem;
       border-radius: 8px;
       margin: 0;
-      min-height: 160px; /* 任意: 高さを固定したい場合 */
+      min-height: 160px; 任意: 高さを固定したい場合
       overflow: hidden;
-    }
+    } */
 
     /* header h1 {
       position: relative;
@@ -223,101 +256,96 @@
   </style>
 </head>
 <body>
-  <header>
-    <small>（👷工事中）</small>
-    <h1></h1>
-  </header>
-
-  <main>
-    <section>
-      <h2>🔗</h2>
-      <ul>
-        <li><a href="https://github.com/">GitHub</a></li>
-        <li><a href="https://chat.openai.com/">ChatGPT</a></li>
-        <li><a href="https://google.co.jp/">Google</a></li>
-        <li><a href="https://zenn.dev/">Zenn</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>📌</h2>
-      <ul>
-        <li><a href="https://github.com/rithub0/test_YOLO">画像認識テストプログラム（動作済）</a></li>
-        <li><a href="https://github.com/rithub0/freecad_ship_parts">CAD製図自動化テストプログラム（工事中）</a></li>
-        <li><a href="https://github.com/rithub0/test_dxf_to_step_project">DXF-STEPテストプログラム（工事中）</a></li>
-        <li><a href="https://cbt.odyssey-com.co.jp/phpexam/php8_2.html">PHP8技術者認定初級試験 9/9</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>🧱</h2>
-      <div class="album">
-        <div class="model-viewer-box">
-          <model-viewer src="models/kleinsche_flache.glb" alt="クラインの壺" camera-controls auto-rotate></model-viewer>
+  <div class="page">
+    <header class="hero">
+      <small>（👷工事中）</small>
+      <img src="images/container.png" alt="rT_Container">
+      <h1 class="sr-only"></h1>
+    </header>
+    <main>
+      <section>
+        <h2>🔗</h2>
+        <ul>
+          <li><a href="https://github.com/">GitHub</a></li>
+          <li><a href="https://chat.openai.com/">ChatGPT</a></li>
+          <li><a href="https://google.co.jp/">Google</a></li>
+          <li><a href="https://zenn.dev/">Zenn</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>📌</h2>
+        <ul>
+          <li><a href="https://github.com/rithub0/test_YOLO">画像認識テストプログラム（動作済）</a></li>
+          <li><a href="https://github.com/rithub0/freecad_ship_parts">CAD製図自動化テストプログラム（工事中）</a></li>
+          <li><a href="https://github.com/rithub0/test_dxf_to_step_project">DXF-STEPテストプログラム（工事中）</a></li>
+          <li><a href="https://cbt.odyssey-com.co.jp/phpexam/php8_2.html">PHP8技術者認定初級試験 9/9</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>🧱</h2>
+        <div class="album">
+          <div class="model-viewer-box">
+            <model-viewer src="models/kleinsche_flache.glb" alt="クラインの壺" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/earth.glb" alt="地球儀" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/iphone_se2_bumper.glb" alt="iPhoneSE2バンパー" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/sakura_vase.glb" alt="一輪挿し" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/right_arrow.glb" alt="右矢印→" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/hebi.glb" alt="巳年" camera-controls auto-rotate></model-viewer>
+          </div>
+          <div class="model-viewer-box">
+            <model-viewer src="models/ttr.glb" alt="トトロ（スキャンテスト）" camera-controls auto-rotate></model-viewer>
+          </div>
         </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/earth.glb" alt="地球儀" camera-controls auto-rotate></model-viewer>
+      </section>
+      <section>
+        <h2>📷</h2>
+        <div class="album">
+          <img src="images/building_berth.JPG" alt="船台" loading="lazy" />
+          <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy" />
+          <img src="images/bucket.jpg" alt="バケット" loading="lazy" />
+          <img src="images/bucket.png" alt="バケットモデル" loading="lazy" />
         </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/iphone_se2_bumper.glb" alt="iPhoneSE2バンパー" camera-controls auto-rotate></model-viewer>
+      </section>
+      <section>
+        <h2>🎥</h2>
+        <div class="video-section">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/sakura_vase.glb" alt="一輪挿し" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/right_arrow.glb" alt="右矢印→" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/hebi.glb" alt="巳年" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-viewer-box">
-          <model-viewer src="models/ttr.glb" alt="トトロ（スキャンテスト）" camera-controls auto-rotate></model-viewer>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>📷</h2>
-      <div class="album">
-        <img src="images/building_berth.JPG" alt="船台" loading="lazy" />
-        <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy" />
-        <img src="images/bucket.jpg" alt="バケット" loading="lazy" />
-        <img src="images/bucket.png" alt="バケットモデル" loading="lazy" />
-      </div>
-    </section>
-
-    <section>
-      <h2>🎥</h2>
-      <div class="video-section">
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/GQzUyI3K_sA?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/S7nThyY_XH8?mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-
-    <section class="profile-section">
-      <h2>👤</h2>
-      <ul class="profile-list">
-        <li>第一種衛生管理</li>
-        <li>Python3エンジニア認定基礎試験</li>
-        <li>第一種普通（準中型）自動車運転免許</li>
-        <li>Webクリエイター能力認定試験エキスパート</li>
-        <li>技能講習修了：フォークリフト運転・玉掛け・ガス溶接</li>
-        <li>特別教育修了：クレーン（5t未満）・アーク溶接</li>
-        <li>溶接技能：NK／MW・SW／CS・SU／Z</li>
-        <li>施設警備業務検定２級</li>
-        <li>漢検２級</li>
-      </ul>
-    </section>    
-  </main>
-
-  <footer>
-    <small>&copy; 2025 rT_Container. All rights reserved.</small><br>
-    <small>📩：<a href="https://x.com/3drtec" target="_blank" rel="noopener noreferrer">X（連絡用）@3drtec</a></small>
-  </footer>
-  
+      </section>
+      <section class="profile-section">
+        <h2>👤</h2>
+        <ul class="profile-list">
+          <li>第一種衛生管理</li>
+          <li>Python3エンジニア認定基礎試験</li>
+          <li>第一種普通（準中型）自動車運転免許</li>
+          <li>Webクリエイター能力認定試験エキスパート</li>
+          <li>技能講習修了：フォークリフト運転・玉掛け・ガス溶接</li>
+          <li>特別教育修了：クレーン（5t未満）・アーク溶接</li>
+          <li>溶接技能：NK／MW・SW／CS・SU／Z</li>
+          <li>施設警備業務検定２級</li>
+          <li>漢検２級</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <small>&copy; 2025 rT_Container. All rights reserved.</small><br>
+      <small>📩：<a href="https://x.com/3drtec" target="_blank" rel="noopener noreferrer">X（連絡用）@3drtec</a></small>
+    </footer>
+  </div>
 </body>
 </html>
