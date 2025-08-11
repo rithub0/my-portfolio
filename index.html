@@ -27,8 +27,6 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { overflow-x: hidden; }
 
-    /* :root { --maxw: 1000px; } */
-
     .bg-image {
       position: fixed;
       top: 0;
@@ -61,12 +59,12 @@
 
     .page{
       width: 100%;
-      max-width: var(--maxw);
       margin: auto;
       padding: 2rem;
       text-align: center;
     }
 
+    /* PCではheaderは固定のまま */
     header {
       position: fixed;
       top: 0;
@@ -78,11 +76,11 @@
 
     header ul {
       display: flex;
-      justify-content: flex-end; /* 現状の見た目維持（値自体は無効だがUIは変えない） */
+      justify-content: right; /* 既存の見た目維持 */
     }
 
     .hero {
-      width: min(100%, var(--maxw));
+      width: 100%;
       margin-inline: auto;
     }
 
@@ -92,6 +90,23 @@
       height: auto;
       border-radius: 8px;
     }
+
+    /* ハンバーガー（PCでは非表示） */
+    .nav-toggle {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      border: 0;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .nav-toggle:focus { outline: 2px solid #fff; outline-offset: 2px; }
 
     main {
       display: flex;
@@ -156,7 +171,7 @@
     }
 
     /* <model-viewer> 要素を枠にフィット */
-    model-viewer {
+    model-viewer{
       width: 100%;
       height: 100%;
       border-radius: 8px;
@@ -200,6 +215,7 @@
     }
     .unmute-btn:hover { background: rgba(0,0,0,0.8); }
 
+    /* .profile-section { margin-inline: auto; } */
     .profile-list { justify-content: center; }
 
     .profile-list li {
@@ -208,6 +224,7 @@
       border-radius: 1rem;
     }
 
+    /* PCではfooterは固定のまま */
     footer {
       position: fixed;
       right: 0;
@@ -217,6 +234,37 @@
       text-align: right;
       padding: 0.5rem;
     }
+
+    /* ===== スマホ用表示調整（768px以下） ===== */
+    @media (max-width: 768px) {
+      /* ヘッダー/フッターを通常フローへ（固定解除） */
+      header { position: relative; top: auto; right: auto; left: auto; }
+      footer { position: static; }
+
+      /* ハンバーガー表示、ナビをドロップダウン化（右上） */
+      .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      header ul {
+        display: none;                    /* 既定は閉じる */
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 8px;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        margin: 0;
+        background: rgba(0,0,0,0.9);
+        border-radius: 8px;
+        min-width: 160px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      }
+      header.nav-open ul { display: flex; }
+
+      /* ヘッダーの高さ分の余白は不要（固定でないため） */
+      main { padding-top: 0; }
+
+      /* フッター small を2行表示 */
+      footer small { display: block; line-height: 1.4; }
+    }
   </style>
 </head>
 <body>
@@ -224,7 +272,10 @@
   <div class="bg-overlay"></div>
   <div class="page">
     <header class="hero">
-      <ul>
+      <!-- ハンバーガー -->
+      <button class="nav-toggle" id="navToggle" aria-controls="globalNav" aria-expanded="false" aria-label="メニュー">☰</button>
+
+      <ul id="globalNav">
         <li><a href="https://github.com/" rel="noopener noreferrer">GitHub</a></li>
         <li><a href="https://chat.openai.com/" rel="noopener noreferrer">ChatGPT</a></li>
         <li><a href="https://google.co.jp/" rel="noopener noreferrer">Google</a></li>
@@ -335,6 +386,7 @@
       };
 
       onReady(() => {
+        /* ======== 動画の初期化（既存） ======== */
         const videos = Array.from(document.querySelectorAll('video.video'));
 
         const prime = (v) => {
@@ -378,6 +430,20 @@
           v.addEventListener('volumechange', syncLabel);
           v.addEventListener('loadeddata', syncLabel);
           syncLabel();
+        }
+
+        /* ======== ハンバーガー開閉 ======== */
+        const navToggle = document.getElementById('navToggle');
+        const headerEl = document.querySelector('header.hero');
+        if (navToggle && headerEl) {
+          navToggle.addEventListener('click', () => {
+            const open = headerEl.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', String(open));
+          });
+          // 画面幅が広がったら開閉状態をリセット（レイアウト崩れ防止）
+          const mql = window.matchMedia('(max-width: 768px)');
+          const resetIfPC = () => { if (!mql.matches) { headerEl.classList.remove('nav-open'); navToggle.setAttribute('aria-expanded', 'false'); } };
+          mql.addEventListener('change', resetIfPC);
         }
       });
     })();
