@@ -127,7 +127,7 @@
       display: flex;
       flex-wrap: wrap;
       text-align: left;
-      max-width: 100%;
+      /* max-width: 100%; */
     }
 
     ul {
@@ -136,14 +136,19 @@
       margin: 0;
     }
 
-    li { margin: 0.5rem; }
+    li {
+      margin: 0.5rem;
+      background-color: rgb(0, 128, 255);
+      border-radius: 1rem;
+      padding: 0.25rem;
+    }
 
     a {
-      background-color: rgb(0, 128, 255);
+      
       color: #fff;
-      padding: 0.5rem;
-      border-radius: 1rem;
-      line-height: 2rem;
+      
+      
+      /* line-height: 2rem; */
       text-decoration: none;
     }
     a:hover { text-decoration: underline; }
@@ -220,8 +225,8 @@
 
     .profile-list li {
       background-color: rgb(128, 128, 128);
-      padding: 0.5rem;
-      border-radius: 1rem;
+      /* padding: 0.5rem;
+      border-radius: 1rem; */
     }
 
     /* PCではfooterは固定のまま */
@@ -233,6 +238,12 @@
       background: rgba(0,0,0,0.5);
       text-align: right;
       padding: 0.5rem;
+    }
+
+    footer a {
+      background-color: rgb(0, 128, 255);
+      padding: 0.5rem;
+      border-radius: 1rem;
     }
 
     /* ===== スマホ用表示調整（768px以下） ===== */
