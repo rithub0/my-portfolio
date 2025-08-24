@@ -120,7 +120,7 @@
       text-align: left;
     }
 
-    ul {
+    main ul {
       list-style: none;
       padding-left: 0;
       margin: 0;
@@ -380,8 +380,6 @@
         position: absolute;
         top: calc(100% + 6px);
         right: 8px;
-        flex-direction: column;
-        align-items: stretch;
         gap: 0.5rem;
         padding: 0.5rem;
         margin: 0;
@@ -390,12 +388,16 @@
         min-width: 160px;
         box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         z-index: 1;
+        flex-direction: column !important; /* 縦並びを強制 */
+        flex-wrap: nowrap !important;      /* 折り返しを無効化（横並び防止） */
+        justify-content: flex-start !important; /* 先頭から縦に積む */
+        align-items: stretch !important;   /* 各項目を横幅いっぱいに */
       }
       header.nav-open ul { display: flex; }
-      header ul li { width: 100%; } 
+      header ul li { width: 100% !important; } 
       header ul a {
-        display: block;               /* ← クリック範囲を行全体に */
-        width: 100%;                  /* ← 全幅 */
+        display: block !important;               /* ← クリック範囲を行全体に */
+        width: 100% !important;                  /* ← 全幅 */
         text-align: left;             /* 見やすい方向に（お好みで right/center 可） */
       }
       main { padding-top: 0; }
