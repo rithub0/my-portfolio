@@ -22,6 +22,7 @@ build/
 # Logs
 *.log
 
+# ローカル設定
 # Environments
 .env
 venv/
@@ -36,19 +37,15 @@ venv/
 *.onnx
 
 # 私物アセット一式（フォルダごと除外）
-images/
-videos/
-models/
-private_assets/
+# images/
+# videos/
+# models/
+# private_assets/
 
 # ファイル種別で除外（念押し）
-*.JPG
-*.jpg
-*.png
-*.mp4
-*.mov
-*.glb
-
-# ローカル設定
-.env
-.env.*
+# *.JPG
+# *.jpg
+# *.png
+# *.mp4
+# *.mov
+# *.glb
