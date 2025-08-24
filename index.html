@@ -132,13 +132,56 @@
 
     li {
       margin: 0;
-      background-color: rgb(0, 128, 255);
       border-radius: 1rem;
-      padding: 0.25rem;
+      padding: 0.25rem; /* ← 大きさはそのまま維持 */
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.25) 0%,   /* 上部に強めの光 */
+          rgba(255,255,255,0.05) 35%,
+          rgba(0,0,0,0.05) 65%,
+          rgba(0,0,0,0.35) 100%        /* 下部に濃い陰 */
+        ),
+        rgb(0,128,255);
+      border-top: 2px solid rgba(255,255,255,0.55); /* 上ラインを明確に */
+      border-bottom: 2px solid rgba(0,0,0,0.55);    /* 下ラインを濃く */
+      transition: filter 120ms ease, border-color 120ms ease, transform 120ms ease;
+      will-change: transform, filter, border-color;
     }
 
-    a { color: #fff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* hoverで光と陰をさらに強調 */
+    li:hover {
+      filter: brightness(1.08);
+      border-top-color: rgba(255,255,255,0.75);
+      border-bottom-color: rgba(0,0,0,0.75);
+      transform: translateY(-2px);
+    }
+
+    /* activeで押し込み感を演出 */
+    li:active {
+      filter: brightness(0.92);
+      border-top-color: rgba(255,255,255,0.35);
+      border-bottom-color: rgba(0,0,0,0.45);
+      transform: translateY(1px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      li { transition: none; }
+      li:hover, li:active { transform: none; }
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: none; }
+
+    a:focus-visible {
+      outline: 2px solid rgba(255,255,255,0.9);
+      outline-offset: 2px;
+      border-radius: 0.75rem;
+    }
 
     .album {
       display: flex;
@@ -154,6 +197,7 @@
     }
 
     .model-viewer-box { width: 200px; height: 200px; border-radius: 8px; }
+
     model-viewer{ width: 100%; height: 100%; border-radius: 8px; }
 
     .video-container {
@@ -162,6 +206,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
+
     .video{
       width: 100%; height: 100%;
       object-fit: contain;
@@ -186,6 +231,7 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
     .play-btn.is-hidden{ display: none; }
 
     .mute-btn{
@@ -200,23 +246,92 @@
       cursor: pointer;
     }
 
-    .profile-list li { background-color: rgb(128, 128, 128); }
+    /* profile-list li は装飾だけ残して、動きは無効化 */
+    .profile-list li {
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.25) 0%,
+          rgba(255,255,255,0.05) 35%,
+          rgba(0,0,0,0.05) 65%,
+          rgba(0,0,0,0.35) 100%
+        ),
+        rgb(128,128,128);   /* 既存のグレー背景 */
+      border-top: 2px solid rgba(255,255,255,0.55);
+      border-bottom: 2px solid rgba(0,0,0,0.55);
+      border-radius: 1rem;
+      padding: 0.25rem;
+      margin: 0;
+      /* 動き系は切る */
+      transition: none;
+      transform: none;
+    }
+
+    /* hover/active も無効化 */
+    .profile-list li:hover,
+    .profile-list li:active {
+      filter: none;
+      border-top-color: rgba(255,255,255,0.55);
+      border-bottom-color: rgba(0,0,0,0.55);
+      transform: none;
+    }
 
     footer {
       position: fixed;
       right: 0; bottom: 0; left: 0;
       justify-content: flex-end;
     }
+
     footer small{
       font-size: 1em;
       line-height: 1;
       margin-left: .75rem;
     }
+    
     footer a {
-      background-color: rgb(0, 128, 255);
-      padding: 0.25rem 0.5rem;
+      color: #fff;
+      text-decoration: none;
       border-radius: 1rem;
+      padding: 0.25rem 0.5rem; /* 既存サイズ維持 */
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.25) 0%,
+          rgba(255,255,255,0.05) 35%,
+          rgba(0,0,0,0.05) 65%,
+          rgba(0,0,0,0.35) 100%
+        ),
+        rgb(0,128,255);
+      border-top: 2px solid rgba(255,255,255,0.55);
+      border-bottom: 2px solid rgba(0,0,0,0.55);
+      transition: filter 120ms ease, border-color 120ms ease, transform 120ms ease;
+      will-change: transform, filter, border-color;
     }
+
+    /* hover：浮き上がり */
+    footer a:hover {
+      text-decoration: none;
+      filter: brightness(1.08);
+      border-top-color: rgba(255,255,255,0.75);
+      border-bottom-color: rgba(0,0,0,0.75);
+      transform: translateY(-2px);
+    }
+
+    /* active：押し込み */
+    footer a:active {
+      filter: brightness(0.92);
+      border-top-color: rgba(255,255,255,0.35);
+      border-bottom-color: rgba(0,0,0,0.45);
+      transform: translateY(1px);
+    }
+
+    /* キーボード操作でフォーカスが当たった時 */
+    footer a:focus-visible {
+      outline: 2px solid rgba(255,255,255,0.9);
+      outline-offset: 2px;
+      border-radius: 0.75rem;
+    }
+
 
     @media (min-width: 769px){
       .page{
