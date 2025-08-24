@@ -379,31 +379,23 @@
         display: none;
         position: absolute;
         top: calc(100% + 6px);
-        height: auto !important; 
-        left: 8px;
         right: 8px;
+        flex-direction: column;
+        align-items: flex-start;      /* ← 左寄せに積む */
         gap: 0.5rem;
         padding: 0.5rem;
         margin: 0;
         background: rgba(0,0,0,0.5);
         border-radius: 8px;
-        min-width: 0;
-        width: auto;
-        box-sizing: border-box;
+        width: max-content;           /* ← 中身（リンク文字列＋padding）にフィット */
+        min-width: auto;              /* ← min-widthを無効化 */
         box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         z-index: 1;
-        flex-direction: column !important; /* 縦並びを強制 */
-        flex-wrap: nowrap !important;      /* 折り返しを無効化（横並び防止） */
-        justify-content: flex-start !important; /* 先頭から縦に積む */
-        align-items: stretch !important;   /* 各項目を横幅いっぱいに */
-        max-height: calc(100svh - var(--bar-h) - 16px);
-        overflow: auto;
       }
       header.nav-open ul { display: flex; }
-      header ul li { width: 100% !important; } 
+      header ul li { width: auto; } 
       header ul a {
-        display: block !important;               /* ← クリック範囲を行全体に */
-        width: 100% !important;                  /* ← 全幅 */
+        display: block;               /* ← クリック範囲を行全体に */                /* ← 全幅 */
         text-align: left;             /* 見やすい方向に（お好みで right/center 可） */
       }
       main { padding-top: 0; }
