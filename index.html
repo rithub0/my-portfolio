@@ -359,7 +359,7 @@
         --bar-fs: 14px;
         --bar-pad-x: 12px;
       }
-      header { position: relative; top: auto; right: auto; left: auto; }
+      header { position: relative; }
       footer { position: static; }
 
       .nav-toggle {
@@ -375,29 +375,39 @@
         position: absolute;
         top: 0; right: 0;
       }
+
       header ul {
-        display: none;
+        display: none;                       /* nav-open時に表示 */
         position: absolute;
-        top: calc(100% + 6px);
-        right: 8px;
+        top: calc(100% + 6px);               /* アイコン直下に展開 */
+        right: 0;                             /* 右端に揃える（leftは指定しない） */
+        height: auto;                         /* PC用 height:100% を無効化 */
+        width: max-content;                   /* 文字列幅＋paddingにフィット */
+        white-space: nowrap;                  /* 折り返し防止＝背景が文字列幅に追従 */
+        min-width: 0;                         /* 既定のmin-widthを無効化（保険） */
+
+        /* 縦並び */
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;      /* ← 左寄せに積む */
+        align-items: stretch;                 /* 各行をULの幅に合わせる */
+        justify-content: flex-start;
         gap: 0.5rem;
+
+        /* 背景ボックス */
         padding: 0.5rem;
         margin: 0;
         background: rgba(0,0,0,0.5);
         border-radius: 8px;
-        width: max-content;           /* ← 中身（リンク文字列＋padding）にフィット */
-        min-width: auto;              /* ← min-widthを無効化 */
         box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         z-index: 1;
       }
+
       header.nav-open ul { display: flex; }
-      header ul li { width: auto; } 
-      header ul a {
-        display: block;               /* ← クリック範囲を行全体に */                /* ← 全幅 */
-        text-align: left;             /* 見やすい方向に（お好みで right/center 可） */
-      }
+
+      /* 各項目は内容幅。aを行全体クリックに */
+      header ul li { width: auto; }
+      header ul a  { display: block; text-align: left; }
+
       main { padding-top: 0; }
       footer {
         position: static;             /* 既存 */
