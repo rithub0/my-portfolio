@@ -91,16 +91,6 @@
       line-height: 1rem;
     }
 
-    header ul{
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      margin: 0; padding: 0;
-      justify-content: flex-end;
-      height: 100%;
-      list-style: none;
-    }
-
     main {
       display: flex;
       flex-direction: column;
@@ -332,13 +322,20 @@
       border-radius: 0.75rem;
     }
 
-
     @media (min-width: 769px){
       .page{
         padding-top: calc(2rem + var(--header-h));
         padding-bottom: calc(2rem + var(--footer-h));
       }
-      header ul{ margin-left: auto; justify-content: flex-end; }
+      header ul{
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        margin: 0; padding: 0;
+        justify-content: flex-end;
+        height: 100%;
+        list-style: none;
+      }
       main{
         min-height: calc(100svh - var(--header-h) - var(--footer-h));
         display: flex;
@@ -596,11 +593,23 @@
           const closeMenu = () => {
             headerEl.classList.remove('nav-open');
             navToggle.setAttribute('aria-expanded', 'false');
+            // 念のため：スマホ幅のときは display:none を強制（PCではCSSで見える）
+            if (window.matchMedia('(max-width: 768px)').matches) {
+              nav.style.display = 'none';
+            } else {
+              nav.style.display = ''; // PCはCSSに委ねる
+            }
+          };
+          const openMenu = () => {
+            headerEl.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            nav.style.display = 'flex';
           };
           const toggleMenu = () => {
-            const open = headerEl.classList.toggle('nav-open');
-            navToggle.setAttribute('aria-expanded', String(open));
+            const isOpen = headerEl.classList.contains('nav-open');
+            if (isOpen) closeMenu(); else openMenu();
           };
+
           navToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleMenu();
@@ -615,10 +624,14 @@
           document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeMenu();
           });
+
           const mql = window.matchMedia('(max-width: 768px)');
-          const resetIfPC = () => { if (!mql.matches) closeMenu(); };
-          if (mql.addEventListener) mql.addEventListener('change', resetIfPC);
-          else mql.addListener(resetIfPC);
+          const handleChange = () => closeMenu(); // 幅が切り替わったら毎回閉じる
+          if (mql.addEventListener) mql.addEventListener('change', handleChange);
+          else mql.addListener(handleChange);
+
+          // ★ 初期表示で必ず閉じる（ここが重要）
+          closeMenu();
         }
       });
     })();
