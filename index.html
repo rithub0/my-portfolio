@@ -6,15 +6,18 @@
   <meta name="description" content="自分用ポータルページ。メモ、リンク集、プロフィールなど。" />
   <meta name="author" content="Your Name" />
   <title>rT_Container</title>
+
   <!-- SNSシェア対策 -->
   <meta property="og:title" content="My Personal Page" />
   <meta property="og:description" content="シンプルでミニマルな自分用ポータルサイト。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://example.com/og-image.png" />
   <meta property="og:url" content="https://example.com/" />
+
   <!-- アイコンなど -->
   <link rel="icon" href="favicon.ico" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
   <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
@@ -22,37 +25,37 @@
   <style>
     /* はみ出し防止の基本 */
     *, *::before, *::after { box-sizing: border-box; }
+
     :root{
-        --section-gap: 1rem;   /* セクション同士の間隔 */
-        --item-gap: 1rem;   /* セクション内の要素間隔 */
-        --section-pad: 0.5rem; /* セクション内の上下パディング微調整 */
+      --section-gap: 1rem;
+      --item-gap: 1rem;
+      --section-pad: 0.25rem;
+      --header-h: 56px;
+      --footer-h: 40px;
+      --bar-h: 56px;
+      --bar-fs: 14px;
+      --bar-pad-x: 16px;
+      --bar-bg: rgba(0,0,0,0.5);
     }
+
     html, body { overflow-x: hidden; }
+
     .bg-image {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       object-fit: contain;
       z-index: -2;
       pointer-events: none;
       padding: 2rem;
-        /* 回転アニメーション */
-      animation: spin 300s linear infinite; /* 300秒で1回転、永遠に回る */
-      transform-origin: center center;     /* 画像の中心を基準に回転 */
+      animation: spin 300s linear infinite;
+      transform-origin: center center;
     }
     @keyframes spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
-    /* .bg-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-      pointer-events: none;
-    } */
+
     body {
       background-color: #000;
       color: #fff;
@@ -62,61 +65,51 @@
       display: grid;
       min-height: 100svh;
     }
+
     .page{
       width: 100%;
       margin: auto;
       padding: 2rem;
       text-align: center;
     }
-    /* PCではheaderは固定のまま */
+
+    header, footer{
+      height: var(--bar-h);
+      background: var(--bar-bg);
+      font-size: var(--bar-fs);
+      display: flex;
+      align-items: center;
+      padding-inline: var(--bar-pad-x);
+    }
+
+    .nav-toggle { display: none; }
+
     header {
       position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      background: rgba(0,0,0,0.5);
+      top: 0; right: 0; left: 0;
       z-index: 1;
+      line-height: 1rem;
     }
-    header ul {
+    
+    header ul{
       display: flex;
-      justify-content: right; /* 既存の見た目維持 */
+      align-items: center;
+      gap: .75rem;
+      margin: 0; padding: 0;
+      justify-content: flex-end;
+      height: 100%;
+      list-style: none;
     }
-    .hero {
-      width: 100%;
-      margin-inline: auto;
-    }
-    .hero img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    /* ハンバーガー（PCでは非表示） */
-    .nav-toggle {
-      display: none;
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      border: 0;
-      background: rgba(0,0,0,0.5);
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 1rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-    .nav-toggle:focus { outline: 2px solid #fff; outline-offset: 2px; }
+
     main {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--section-gap); /* ← セクション間隔を統一 */
+      gap: var(--section-gap);
     }
-    section{
-        margin: 0;                      /* ← 外側marginは使わない */
-        padding-block: var(--section-pad);
-    }
+
+    section{ margin: 0; padding-block: var(--section-pad); }
+
     /* 中央配置を維持しつつ、文面だけ左揃え */
     section ul,
     .profile-section .profile-list,
@@ -125,40 +118,33 @@
       display: flex;
       flex-wrap: wrap;
       text-align: left;
-      /* max-width: 100%; */
     }
+
     ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: var(--item-gap);  /* ← li同士の空白をここで統一 */
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--item-gap);
     }
+
     li {
       margin: 0;
       background-color: rgb(0, 128, 255);
       border-radius: 1rem;
       padding: 0.25rem;
     }
-    a {
-      color: #fff;
-      /* line-height: 2rem; */
-      text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    .program {
-        justify-content: center;
-        gap: var(--item-gap);
-    }
+
+    a { color: #fff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     .album {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: var(--item-gap);           /* ← 統一 */
+      gap: var(--item-gap);
     }
     .album img {
       width: 200px;
@@ -166,103 +152,116 @@
       object-fit: cover;
       border-radius: 8px;
     }
-    .model-viewer-box {
-      width: 200px;
-      height: 200px;
-      border-radius: 8px;
-    }
-    /* <model-viewer> 要素を枠にフィット */
-    model-viewer{
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-    }
-    .video-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: var(--item-gap);           /* ← 1.5rem → 統一 */
-    }
+
+    .model-viewer-box { width: 200px; height: 200px; border-radius: 8px; }
+    model-viewer{ width: 100%; height: 100%; border-radius: 8px; }
+
     .video-container {
-      width: 200px;
-      height: 200px;
+      width: 200px; height: 200px;
       position: relative;
       border-radius: 8px;
       overflow: hidden;
     }
     .video{
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: contain;
       display: block;
       border: none;
       border-radius: 8px;
     }
-    .unmute-btn {
+
+    .play-btn{
       position: absolute;
-      bottom: 8px;
-      right: 8px;
+      inset: 0;
+      margin: auto;
+      width: clamp(64px, 12vw, 96px);
+      height: clamp(64px, 12vw, 96px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .play-btn.is-hidden{ display: none; }
+
+    .mute-btn{
+      position: absolute;
+      right: 8px; bottom: 8px;
       background: rgba(0,0,0,0.5);
       color: #fff;
-      border: none;
+      border: 0;
       padding: 6px 10px;
       border-radius: 4px;
+      font-size: 1rem;
       cursor: pointer;
-      font-size: 0.8rem;
     }
-    .unmute-btn:hover { background: rgba(0,0,0,0.5); }
-    /* .profile-section { margin-inline: auto; } */
-    .profile-list {
-        justify-content: center;
-        gap: var(--item-gap);
-    }
-    .profile-list li {
-      background-color: rgb(128, 128, 128);
-      /* padding: 0.5rem;
-      border-radius: 1rem; */
-    }
-    /* PCではfooterは固定のまま */
+
+    .profile-list li { background-color: rgb(128, 128, 128); }
+
     footer {
       position: fixed;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(0,0,0,0.5);
-      text-align: right;
-      padding: 0.5rem;
+      right: 0; bottom: 0; left: 0;
+      justify-content: flex-end;
+    }
+    footer small{
+      font-size: 1em;
+      line-height: 1;
+      margin-left: .75rem;
     }
     footer a {
       background-color: rgb(0, 128, 255);
-      padding: 0.1rem 0.5rem;
+      padding: 0.25rem 0.5rem;
       border-radius: 1rem;
     }
+
+    @media (min-width: 769px){
+      .page{
+        padding-top: calc(2rem + var(--header-h));
+        padding-bottom: calc(2rem + var(--footer-h));
+      }
+      header ul{ margin-left: auto; justify-content: flex-end; }
+      main{
+        min-height: calc(100svh - var(--header-h) - var(--footer-h));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--section-gap);
+      }
+    }
+
     /* ===== スマホ用表示調整（768px以下） ===== */
-    /* スマホは少し詰める */
     @media (max-width: 768px){
-        :root{
-            --section-gap: 2rem;
-            --item-gap: 0.75rem;
-            --section-pad: 0.25rem;
-        }
-      /* ヘッダー/フッターを通常フローへ（固定解除） */
+      :root{
+        --section-gap: 2rem;
+        --item-gap: 0.75rem;
+        --section-pad: 0.25rem;
+        --bar-h: 48px;
+        --bar-fs: 14px;
+        --bar-pad-x: 12px;
+      }
       header { position: relative; top: auto; right: auto; left: auto; }
       footer { position: static; }
-      /* ハンバーガー表示、ナビをドロップダウン化（右上） */
+
       .nav-toggle {
-            display: inline-flex;     /* PC版の display:none を上書き */
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            font-size: 2rem;          /* アイコンを大きく */
-            background: none;         /* 背景なし */
-            border: none;             /* 枠線もなし */
-            border-radius: 0;
-            padding: 0;               /* 余白なし → アイコンだけの範囲 */
-            top: 0;
-            right: 0;
-        }
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        position: absolute;
+        top: 0; right: 0;
+      }
       header ul {
-        display: none;                    /* 既定は閉じる */
+        display: none;
         position: absolute;
         top: calc(100% + 6px);
         right: 8px;
@@ -277,17 +276,14 @@
         z-index: 1;
       }
       header.nav-open ul { display: flex; }
-      /* ヘッダーの高さ分の余白は不要（固定でないため） */
       main { padding-top: 0; }
-      /* フッター small を2行表示 */
       footer small { display: block; line-height: 1.4; }
     }
   </style>
 </head>
-
 <body>
   <img src="images/container.png" alt="rT_Container" class="bg-image">
-  <div class="bg-overlay"></div>
+
   <div class="page">
     <header class="hero">
       <button class="nav-toggle" id="navToggle" aria-controls="globalNav" aria-expanded="false" aria-label="メニュー">☰</button>
@@ -297,34 +293,39 @@
         <li><a href="https://google.co.jp/" rel="noopener noreferrer">🔗Google</a></li>
       </ul>
     </header>
+
     <main>
-        <section class="ship_building">
-            <div class="album">
-              <img src="images/building_berth.JPG" alt="船台" loading="lazy" />
-              <div class="video-container">
-                <video id="gougingVideo" class="video" muted autoplay loop playsinline webkit-playsinline preload="metadata">
-                  <source src="videos/gouging.mp4" type="video/mp4">
-                  <source src="videos/gouging.mov" type="video/quicktime">
-                  お使いのブラウザは動画に対応していません。
-                </video>
-                <button id="muteToggleBtn" class="unmute-btn" aria-pressed="true" aria-label="音声のオンオフ">🔈</button>
-              </div>
-              <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy" />
-            </div>
-        </section>          
-        <section class="bucket_making">
-            <div class="album">
-                <img src="images/bucket.jpg" alt="バケット" loading="lazy" />
-                <div class="video-container">
-                    <video class="video" muted autoplay loop playsinline webkit-playsinline preload="metadata">
-                    <source src="videos/bucket.mp4" type="video/mp4">
-                    <source src="videos/bucket.mov" type="video/quicktime">
-                    お使いのブラウザは動画に対応していません。
-                    </video>
-                </div>
-                <img src="images/bucket.png" alt="バケットモデル" loading="lazy" />
-            </div>
-        </section>          
+      <section class="ship_building">
+        <div class="album">
+          <img src="images/building_berth.JPG" alt="船台" loading="lazy" />
+          <div class="video-container">
+            <video class="video" muted playsinline webkit-playsinline preload="metadata" poster="images/gouging_poster.jpg">
+              <source src="videos/gouging.mp4" type="video/mp4">
+              <source src="videos/gouging.mov" type="video/quicktime">
+              お使いのブラウザは動画に対応していません。
+            </video>
+            <button class="play-btn" aria-label="再生">▶︎</button>
+            <button class="mute-btn" aria-label="消音切替" aria-pressed="true">🔇</button>
+          </div>
+          <img src="images/welding_test.JPG" alt="溶接試験" loading="lazy" />
+        </div>
+      </section>
+
+      <section class="bucket_making">
+        <div class="album">
+          <img src="images/bucket.jpg" alt="バケット" loading="lazy" />
+          <div class="video-container">
+            <video class="video" muted playsinline webkit-playsinline preload="metadata" poster="images/bucket_poster.jpg">
+              <source src="videos/bucket.mp4" type="video/mp4">
+              <source src="videos/bucket.mov" type="video/quicktime">
+              お使いのブラウザは動画に対応していません。
+            </video>
+            <button class="play-btn" aria-label="再生">▶︎</button>
+          </div>
+          <img src="images/bucket.png" alt="バケットモデル" loading="lazy" />
+        </div>
+      </section>
+
       <section>
         <div class="album">
           <div class="model-viewer-box">
@@ -336,9 +337,6 @@
           <div class="model-viewer-box">
             <model-viewer src="models/iphone_se2_bumper.glb" alt="iPhoneSE2バンパー" camera-controls auto-rotate></model-viewer>
           </div>
-          <!-- <div class="model-viewer-box">
-            <model-viewer src="models/sakura_vase.glb" alt="一輪挿し" camera-controls auto-rotate></model-viewer>
-          </div> -->
           <div class="model-viewer-box">
             <model-viewer src="models/right_arrow.glb" alt="右矢印→" camera-controls auto-rotate></model-viewer>
           </div>
@@ -350,15 +348,17 @@
           </div>
         </div>
       </section>
+
       <section>
         <ul class="program">
           <li><a href="https://github.com/rithub0/danger_detection" rel="noopener noreferrer">📁画像認識プログラム</a></li>
           <li><a href="https://github.com/rithub0/exam_app" rel="noopener noreferrer">📁選択式試験対策アプリ</a></li>
           <li><a href="https://github.com/rithub0/freecad_ship_parts" rel="noopener noreferrer">📁CAD製図自動化テストプログラム（工事中）</a></li>
           <li><a href="https://github.com/rithub0/test_dxf_to_step_project" rel="noopener noreferrer">📁DXF-STEPテストプログラム（工事中）</a></li>
-          <li><a href="https://cbt.odyssey-com.co.jp/phpexam/php8_2.html" rel="noopener noreferrer">PHP8技術者認定初級試験 9/9</a></li>
+          <li><a href="https://cbt.odyssey-com.co.jp/phpexam/php8_2.html" rel="noopener noreferrer">🔗PHP8技術者認定初級試験（9/9）</a></li>
         </ul>
       </section>
+
       <section class="profile-section">
         <ul class="profile-list">
           <li>第一種普通（準中型）自動車運転免許</li>
@@ -373,8 +373,9 @@
         </ul>
       </section>
     </main>
+
     <footer>
-      <small><a href="https://x.com/3drtec" target="_blank" rel="noopener noreferrer">📩：X（連絡用）@3drtec</a></small>
+      <small><a href="https://x.com/3drtec" target="_blank" rel="noopener noreferrer">✉️：X（連絡用）@3drtec</a></small>
       <small>&copy; 2025 Ryota Tanaka</small>
     </footer>
   </div>
@@ -385,48 +386,70 @@
         if (document.readyState === 'complete' || document.readyState === 'interactive') fn();
         else document.addEventListener('DOMContentLoaded', fn, { once: true });
       };
-      onReady(() => {
-        /* ======== 動画の初期化（既存） ======== */
-        const videos = Array.from(document.querySelectorAll('video.video'));
-        const prime = (v) => {
-          v.muted = true;          // 自動再生の必須条件
-          v.defaultMuted = true;   // iOS対策
-          v.loop = true;
-          v.autoplay = true;
-          v.setAttribute('playsinline', '');
-          v.setAttribute('webkit-playsinline', '');
-          if (!v.hasAttribute('preload')) v.setAttribute('preload', 'auto');
-        };
-        const tryPlay = (v) => v.play().catch(() => {});
-        videos.forEach(v => {
-          prime(v);
-          if (v.readyState >= 2) tryPlay(v);
-          else v.addEventListener('canplay', () => tryPlay(v), { once: true });
-        });
-        const kickAll = () => videos.forEach(v => { if (v.paused) tryPlay(v); });
-        document.addEventListener('pointerdown', kickAll, { once: true });
-        document.addEventListener('visibilitychange', () => { if (!document.hidden) kickAll(); });
-        const v = document.getElementById('gougingVideo');
-        const btn = document.getElementById('muteToggleBtn');
-        if (v && btn) {
-          const syncLabel = () => {
+
+      function initVideos() {
+        document.querySelectorAll('.video-container').forEach(box => {
+          const v = box.querySelector('video');
+          const playBtn = box.querySelector('.play-btn');
+          const muteBtn = box.querySelector('.mute-btn');
+          if (!v) return;
+
+          v.autoplay = false;
+          v.loop = false;
+          v.controls = false;
+          v.muted = true;
+          v.defaultMuted = true;
+          v.pause();
+
+          if (playBtn) {
+            playBtn.addEventListener('click', async () => {
+              try {
+                await v.play();
+                playBtn.classList.add('is-hidden');
+              } catch (e) {
+                console.error('play failed:', e);
+              }
+            });
+            v.addEventListener('ended', () => playBtn.classList.remove('is-hidden'));
+          }
+
+          const syncMute = () => {
             const isMuted = v.muted || v.volume === 0;
-            btn.textContent = isMuted ? '🔇' : '🔈';
-            btn.setAttribute('aria-pressed', String(!isMuted));
-          };
-          btn.addEventListener('click', async () => {
-            v.muted = !v.muted;
-            if (!v.muted) {
-              v.volume = 1.0;
-              try { await v.play(); } catch (_) {}
+            if (muteBtn) {
+              muteBtn.textContent = isMuted ? '🔇' : '🔊';
+              muteBtn.setAttribute('aria-pressed', String(!isMuted));
             }
-            syncLabel();
-          });
-          v.addEventListener('volumechange', syncLabel);
-          v.addEventListener('loadeddata', syncLabel);
-          syncLabel();
-        }
-        /* ======== ハンバーガー開閉（追記） ======== */
+          };
+          if (muteBtn) {
+            muteBtn.addEventListener('click', () => {
+              v.muted = !v.muted;
+              syncMute();
+            });
+          }
+          v.addEventListener('loadeddata', syncMute);
+          v.addEventListener('volumechange', syncMute);
+          syncMute();
+        });
+      }
+
+      function applyHeaderFooterHeights(){
+        const header = document.querySelector('header.hero');
+        const footer = document.querySelector('footer');
+        const rh = header ? header.offsetHeight : 0;
+        const rf = footer ? footer.offsetHeight : 0;
+        const root = document.documentElement;
+        root.style.setProperty('--header-h', rh + 'px');
+        root.style.setProperty('--footer-h', rf + 'px');
+      }
+
+      onReady(() => {
+        applyHeaderFooterHeights();
+        window.addEventListener('resize', applyHeaderFooterHeights);
+        window.addEventListener('load', applyHeaderFooterHeights);
+
+        initVideos();
+
+        /* ハンバーガー開閉 */
         const headerEl = document.querySelector('header.hero');
         const navToggle = document.getElementById('navToggle');
         const nav = document.getElementById('globalNav');
@@ -439,31 +462,24 @@
             const open = headerEl.classList.toggle('nav-open');
             navToggle.setAttribute('aria-expanded', String(open));
           };
-          // ボタンで開閉
           navToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleMenu();
           });
-          // メニュー内のリンクを押したら閉じる
           nav.addEventListener('click', (e) => {
             const t = e.target;
-            if (t && t.tagName && t.tagName.toLowerCase() === 'a') {
-              closeMenu();
-            }
+            if (t && t.tagName && t.tagName.toLowerCase() === 'a') closeMenu();
           });
-          // ヘッダー外クリックで閉じる
           document.addEventListener('click', (e) => {
             if (!headerEl.contains(e.target)) closeMenu();
           });
-          // Escapeキーで閉じる
           document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeMenu();
           });
-          // 画面幅が広がったら状態リセット（PC表示で開きっぱなし防止）
           const mql = window.matchMedia('(max-width: 768px)');
           const resetIfPC = () => { if (!mql.matches) closeMenu(); };
           if (mql.addEventListener) mql.addEventListener('change', resetIfPC);
-          else mql.addListener(resetIfPC); // 古いブラウザ対策
+          else mql.addListener(resetIfPC);
         }
       });
     })();
